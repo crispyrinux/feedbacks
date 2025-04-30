@@ -1,14 +1,16 @@
 require('dotenv').config();
 const { Pool } = require('pg');
 
+
+const DB_URL = process.env.DB_URL
+// Assuming your .env has PG_CONNECTION_STRING defined
 const pool = new Pool({
-  host: process.env.PG_HOST,
-  user: process.env.PG_USER,
-  password: process.env.PG_PASSWORD,
-  database: process.env.PG_DATABASE,
-  port: process.env.PG_PORT || 5432,
-  ssl: { rejectUnauthorized: false }
+  connectionString: DB_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
+
 
 pool.connect((err) => {
   if (err) {
